@@ -61,7 +61,6 @@ public class BestScores extends javax.swing.JFrame {
     
     public void addRowToTable(int index, String user, String score){
         //Add data to model
-        System.out.println(index + " " + user + " " + score);
         String[] data = {user, score};
         model.addRow(data);
     }

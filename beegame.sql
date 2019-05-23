@@ -1,5 +1,5 @@
-CREATE DATABASE daleabeja;
-USE daleabeja;
+CREATE DATABASE beegame;
+USE beegame;
 CREATE TABLE users(
 	id_user SERIAL NOT NULL,
     name_user VARCHAR(40) NOT NULL,
@@ -7,14 +7,10 @@ CREATE TABLE users(
     PRIMARY KEY (id_user)
 );
 CREATE TABLE scores (
-    id_score INTEGER AUTO_INCREMENT,
     score_sc INTEGER(10) NOT NULL,
-    date_sc DATETIME NOT NULL,
-    id_user SERIAL,
-    PRIMARY KEY (id_score),
+    date_sc varchar(50) NOT NULL,
+    id_user bigint unsigned,
     FOREIGN KEY (id_user)
         REFERENCES users (id_user)
         ON DELETE CASCADE
 );
-
-    
