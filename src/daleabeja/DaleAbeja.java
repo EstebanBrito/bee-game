@@ -104,13 +104,15 @@ public class DaleAbeja extends javax.swing.JPanel implements Runnable, MouseMoti
         }
     }
 
+    @SuppressWarnings("UseSpecificCatch")
     public void terminar() {
         try {
             sleep(2000);
             BestScores bs = new BestScores();
-            bs.setVisible(true);
             bs.setLocationRelativeTo(null);
             bs.setTitle("Best Scores");
+            bs.setVisible(true);
+            //Eliminar pantalla de juego??
             Window w = SwingUtilities.getWindowAncestor(DaleAbeja.this);
             w.dispose();
         } catch (Exception e) {
@@ -283,11 +285,9 @@ public class DaleAbeja extends javax.swing.JPanel implements Runnable, MouseMoti
 
                 if (atinados > 5) {
                     g.drawString("GANASTE", 200, 250);
-                    terminar();
                 } // resultado
                 else {
                     g.drawString("PERDISTE", 200, 250);
-                    terminar();
                 }
                 for (int q = 0; q < 10; q++) {
                     g.drawImage(puntos[q], 1 + (q * 40), 480, 40, 40, null); // dibuja puntos en abejas
@@ -298,21 +298,23 @@ public class DaleAbeja extends javax.swing.JPanel implements Runnable, MouseMoti
                     Connection con = null;
                     con = getConnection();
                     PreparedStatement ps, ps1;
+                    ResultSet res;
                     Date date = new Date();
                     DateFormat hourFormat = new SimpleDateFormat("dd-mm-yy hh:mm:ss ");
-                    ResultSet res;
                     ps = con.prepareStatement("SELECT id_user FROM users WHERE name_user=\"" + getUsuario() + "\";");
                     res = ps.executeQuery();
                     if (res.next()) {
+                        System.out.println();
                         ps1 = con.prepareStatement("INSERT INTO scores ( id_user, score_sc, date_sc ) VALUES ( \"" + res.getString("id_user") + "\",\"" + atinados + "\", \"" + hourFormat.format(date) + "\" );");
                         ps1.executeUpdate();
                     }
                     con.close();
 
+                    //Una vez guardado todo, espera y vuelve a BestScores
+                    terminar();
                 } catch (Exception ex) {
                     System.out.println(ex);
                 }
-
             } else {
                 g.drawImage(abejas[SelImg], Abejax, Abejay, dsizex, dsizey, null); // dibuja nueva abeja, nueva imagen
                 CuadroAbeja = new Rectangle(Abejax, Abejay, dsizex, dsizey); // se le asigna al rectangulo las

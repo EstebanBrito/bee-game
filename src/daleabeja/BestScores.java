@@ -47,6 +47,7 @@ public class BestScores extends javax.swing.JFrame {
         AudioClip sonido3 = Applet.newAudioClip(file3.toURL());
         DaleAbeja bee = new DaleAbeja(sonido1, sonido2, sonido3); // enviarlos al metodo abeja contructor
         bee.setVisible(true);
+        this.dispose();
     }
 
     public void initTable(){
